@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const loginCheck = require('../middleware/loginCheck')
 
 router.get("/test", (req, res, next) => {
   res.json("All good in here");

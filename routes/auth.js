@@ -60,5 +60,19 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
+router.post('/logout', (req, res)=>{
+  req.logout()
+  res.status(200).json({message: 'You have successfully left us'})
+})
+
+
+router.get('/loggedin', (req, res, next)=>{
+  if(req.isAuthenticated()){
+    res.status(200).json(req.user)
+    return
+  }
+  res.status(403).json({errorMessage: 'You should not be here, mate'})
+})
+
 
 module.exports = router;
