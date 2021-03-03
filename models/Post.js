@@ -6,13 +6,17 @@ const postSchema = new Schema({
     type: String,
     required: true,
   },
-  imgUrl: String,
+  imgURL: {
+    type: String,
+    required: true
+  },
+
   description: String,
-  comments: [String],
+  
   postedBy: {
     type: Schema.Types.ObjectId,
     ref: "User",
-    },
+    }
 });
 
 const Post = model("Post", postSchema);

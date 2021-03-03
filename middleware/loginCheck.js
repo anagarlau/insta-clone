@@ -3,9 +3,9 @@ const loginCheck = () => {
     if (req.isAuthenticated()) {
       next();
     } else {
-      res.redirect('/loginUser');
+      res.status(401).json({ errorMessage: "Please login" });
     }
-  }
-}
+  };
+};
 
-module.exports = loginCheck
+module.exports = loginCheck;

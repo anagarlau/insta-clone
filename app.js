@@ -11,6 +11,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/User.js");
 const Post = require("./models/Post.js");
  const mongoose = require('./db/index.js')
+ const cors = require('cors');
 require("./config")(app);
 //SESSION SETUP
 const mongoStore = MongoStore.create({
@@ -69,15 +70,21 @@ app.use(passport.session());
 
 app.use(express.json())
 require("./db");
-// 👇 Start handling routes here
-// Contrary to the views version, all routes are controled from the routes/index.js
+
+//CORS MIDDLEWARE  
+app.use(cors({
+  credentials: true,
+  origin: ['http://localhost:3000']
+}));
+//ROUTE HANDLING
 const allRoutes = require("./routes");
 app.use("/api", allRoutes);
 
 const auth = require('./routes/auth')
 app.use('/api/auth', auth)
 
-
+const posts = require('./routes/posts')
+app.use('/api/posts', posts)
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
