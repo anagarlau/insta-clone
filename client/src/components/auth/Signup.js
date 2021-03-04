@@ -20,7 +20,7 @@ class Signup extends Component {
         } else {
           // the response from the server is a user object -> signup was successful
           // we want to put the user object in the state of App.js
-          console.log(user)
+          // console.log(user)
           this.props.setUser(user);
           this.props.history.push('/');
         }
