@@ -1,74 +1,40 @@
-
 import React, { Component } from "react";
-// import { BrowserRouter, Switch, Route } from "react-router-dom";
-import axios from "axios";
+import Signup from "./components/auth/Signup";
+import Login from "./components/auth/Login";
+import { Switch, Route } from "react-router-dom";
+// import ProtectedRoute from "./components/ProtectedRoute";
+import Home from "./components/Home";
+class App extends Component {
+  state = {
+    user: this.props.user,
+  };
 
-
-export default class App extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      loggedInStatus: "NOT_LOGGED_IN",
-      user: {}
-    };
-
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
-  }
-
-  checkLoginStatus() {
-    axios
-      .get("http://localhost:5005/api/loggedin", { withCredentials: true })
-      .then(response => {
-        if (
-          response.data.loggedin &&
-          this.state.loggedInStatus === "NOT_LOGGED_IN"
-        ) {
-          this.setState({
-            loggedInStatus: "LOGGED_IN",
-            user: response.data.user
-          });
-        } else if (
-          !response.data.loggedin &
-          (this.state.loggedInStatus === "LOGGED_IN")
-        ) {
-          this.setState({
-            loggedInStatus: "NOT_LOGGED_IN",
-            user: {}
-          });
-        }
-      })
-      .catch(error => {
-        console.log("check login error", error);
-      });
-  }
-
-  componentDidMount() {
-    this.checkLoginStatus();
-  }
-
-  handleLogout() {
+  setUser = (user) => {
     this.setState({
-      loggedInStatus: "NOT_LOGGED_IN",
-      user: {}
+      user: user,
     });
-  }
-
-  handleLogin(data) {
-    this.setState({
-      loggedInStatus: "LOGGED_IN",
-      user: data.user
-    });
-  }
+  };
 
   render() {
-    console.log(this.state);
+    console.log(this.state.user);
     return (
-      
-      <div className="app">
-        hello
+      <div className="App">
+        <Switch>
+          <Route
+            exact
+            path="/signup"
+            render={(props) => <Signup setUser={this.setUser} {...props} />}
+          />
+          <Route
+            exact
+            path="/login"
+            render={(props) => <Login setUser={this.setUser} {...props} />}
+          />
+          <Route exact path="/" component={Home} />
+        </Switch> 
       </div>
     );
   }
 }
+
+export default App;
