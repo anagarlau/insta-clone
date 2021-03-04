@@ -77,8 +77,8 @@ app.use(cors({
   origin: ['http://localhost:3000']
 }));
 //ROUTE HANDLING
-const allRoutes = require("./routes");
-app.use("/api", allRoutes);
+const index = require("./routes/index");
+app.use("/api", index);
 
 const auth = require('./routes/auth')
 app.use('/api/auth', auth)

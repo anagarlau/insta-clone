@@ -12,9 +12,26 @@ router.post("/postIt", loginCheck(), (req, res) => {
   .catch(err=>{console.log(err)})
 });
 
- 
 
-// You put the next routes here 👇
-// example: router.use("/auth", authRoutes)
+router.get('/allPosts', loginCheck(), async(req, res)=>{
+  try{
+    const allPosts = await Post.find().populate('postedBy')
+
+    res.json(allPosts)
+
+  }catch(err){
+    res.status(500).send()
+  }
+})
+
+
+router.get('/userPosts', loginCheck(), async (req, res) =>{
+  try{
+  const userPosts = await Post.find({postedBy: req.user._id}).populate('postedBy')
+    res.json(userPosts)
+  }catch(err){
+    res.status(500).send()
+  }
+})
 
 module.exports = router;
