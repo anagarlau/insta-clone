@@ -1,29 +1,74 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import React, { Component } from "react";
+// import { BrowserRouter, Switch, Route } from "react-router-dom";
+import axios from "axios";
 
 
-  
+export default class App extends Component {
+  constructor() {
+    super();
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    this.state = {
+      loggedInStatus: "NOT_LOGGED_IN",
+      user: {}
+    };
+
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  checkLoginStatus() {
+    axios
+      .get("http://localhost:5005/api/loggedin", { withCredentials: true })
+      .then(response => {
+        if (
+          response.data.loggedin &&
+          this.state.loggedInStatus === "NOT_LOGGED_IN"
+        ) {
+          this.setState({
+            loggedInStatus: "LOGGED_IN",
+            user: response.data.user
+          });
+        } else if (
+          !response.data.loggedin &
+          (this.state.loggedInStatus === "LOGGED_IN")
+        ) {
+          this.setState({
+            loggedInStatus: "NOT_LOGGED_IN",
+            user: {}
+          });
+        }
+      })
+      .catch(error => {
+        console.log("check login error", error);
+      });
+  }
+
+  componentDidMount() {
+    this.checkLoginStatus();
+  }
+
+  handleLogout() {
+    this.setState({
+      loggedInStatus: "NOT_LOGGED_IN",
+      user: {}
+    });
+  }
+
+  handleLogin(data) {
+    this.setState({
+      loggedInStatus: "LOGGED_IN",
+      user: data.user
+    });
+  }
+
+  render() {
+    console.log(this.state);
+    return (
+      
+      <div className="app">
+        hello
+      </div>
+    );
+  }
 }
-
-export default App;
