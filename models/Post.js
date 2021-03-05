@@ -6,13 +6,12 @@ const postSchema = new Schema(
       type: String,
       required: true,
     },
-
     description: String,
 
     postedBy: {
       type: Schema.Types.ObjectId,
       ref: "User",
-    }
+    },
   },
   { timestamps: true }
 );
