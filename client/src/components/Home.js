@@ -27,12 +27,13 @@ class Home extends React.Component {
     this.getPosts();
   }
   render() {
-    if (this.state.posts.length === 0) return <h3> Loading... </h3>;
+   
     const loggedIn = this.props;
     // console.log(this.state.posts[0]._id);
     if (loggedIn.user) {
+      if (this.state.posts.length === 0) return <h3> Loading... </h3>;
       return (
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center column">
           {this.state.posts.map((post) => (
             <div key={post._id} className="card" style={{ width: "18rem" }}>
               <div className="card-body">
