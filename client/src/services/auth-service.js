@@ -24,7 +24,7 @@ const login = (username, password) => {
 
 const logout = () => {
   return axios
-    .delete("/api/auth/logout")
+    .post("/api/auth/logout")
     .then((response) => {
       return response.data;
     })

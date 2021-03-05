@@ -24,12 +24,12 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: false, // <== false if you don't want to save empty session object to the store
-    cookie: {
-      sameSite: "none",
-      httpOnly: true,
-      maxAge: 60 * 1000 * 60,
-    },
-    store: mongoStore
+    // cookie: {
+    //   sameSite: "none",
+    //   httpOnly: true,
+    //   maxAge: 60 * 1000 * 60,
+    // },
+    // store: mongoStore
   
   })
 );

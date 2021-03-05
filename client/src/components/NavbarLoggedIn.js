@@ -17,22 +17,22 @@ class NavbarLoggedIn extends React.Component{
   }
 
   render(){
-    return ( <nav className="navbar  mb-1">
-    <div className="container">
-    <Link className="navbar-brand" to='/'> Instagram  </Link>
-    </div>
-     
-      <ul className="navbar-nav"> 
-      <li>
-              <Link to='/' onClick={() => this.handleLogout(this.props)} >Logout</Link>
-      </li>
-      <li className="nav-item"> <a href="$"> Profile </a> </li>
-      <li className="nav-item"> <a href="$"> Create a Post </a> </li>
-
-      </ul>
-
+    return  (<nav className="navbar navbar-expand-md navbar-light bg-light" style={{backgroundColor:'pink'}}>
    
-  </nav>)
+    <Link className="navbar-brand" to={'/'}> Instagram  </Link>
+   
+
+    <div className="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+        <div className="navbar-nav">
+        <Link className="nav-item nav-link active"   to='/' onClick={() => this.handleLogout(this.props)} >Logout</Link>
+        {/* <Link className="nav-item nav-link active"  to={'/'} onClick={() => this.handleLogout(this.props)} >Logout</Link> */}
+         <a href="#" className="nav-item nav-link">Create Post</a>
+          <a href="#" className="nav-item nav-link">Profile</a>
+        
+        </div>
+       
+    </div>
+</nav>)   
   }
 }
 

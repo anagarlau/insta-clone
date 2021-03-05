@@ -6,7 +6,7 @@ import NavbarLoggedIn from "./NavbarLoggedIn";
 function NavBar(props) {
   
   const loggedIn = props;
-  console.log(props)
+ 
   if (loggedIn.user) {
     return <NavbarLoggedIn user={props.user}setUser={props.setUser}/>;
   } else {
