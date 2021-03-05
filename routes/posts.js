@@ -1,31 +1,40 @@
 const router = require("express").Router();
 const loginCheck = require("../middleware/loginCheck");
 const Post = require("../models/Post");
-const fileUploader = require('../config/cloudinary.config');
-const cloudinary = require('cloudinary').v2;
+const { uploader, cloudinary } = require('../config/config');
 
-router.post("/postIt", loginCheck(), fileUploader.single("imgURL"), (req, res) => {
-    const { description } = req.body;
-    console.log('aaaaaaaaaaaaaaaaa', req.file.path);
-    if (!req.file) {
+
+router.post('/upload', loginCheck(), uploader.single('imgURL'), (req, res, next) => {
+  
+  if (!req.file) {
+    next(new Error('No file uploaded!'));
+    return;
+  }   
+  res.json({ secure_url: req.file.path });
+});
+
+
+router.post("/postIt", loginCheck(), uploader.single('imgURL'), (req, res, next) => {
+    const { description, imgURL } = req.body;
+    
+    if (!description) {
       res.status(400).json({
         errorMessage: "Please make something pretty for us to look at",
       });
     }
-    const imgURL = req.file.path;
+    
     Post.create({
       description: description,
       imgURL: imgURL,
-      postedBy: req.user,
+      // postedBy: req.user,
     })
       .then((createdPost) => {
         res.status(200).json(createdPost);
       })
       .catch((err) => {
-        console.log(err);
+        next(err);
       });
-  }
-);
+  });
 
 router.get("/allPosts", loginCheck(), async (req, res) => {
   try {

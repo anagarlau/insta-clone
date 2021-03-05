@@ -13,6 +13,13 @@ const Post = require("./models/Post.js");
  const mongoose = require('./db/index.js')
  const cors = require('cors');
 require("./config")(app);
+//cors
+app.use(
+  cors({
+    // this could be multiple domains/origins, but we will allow just our React app
+    origin: ['http://localhost:3000']
+  })
+);
 //SESSION SETUP
 const mongoStore = MongoStore.create({
   mongoUrl: mongoose.MONGO_URI,
@@ -72,10 +79,10 @@ app.use(express.json())
 require("./db");
 
 //CORS MIDDLEWARE  
-app.use(cors({
-  credentials: true,
-  origin: ['http://localhost:3000']
-}));
+// app.use(cors({
+//   credentials: true,
+//   origin: ['http://localhost:3000']
+// }));
 //ROUTE HANDLING
 const index = require("./routes/index");
 app.use("/api", index);
