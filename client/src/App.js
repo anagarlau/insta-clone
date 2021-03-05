@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import Signup from "./components/auth/Signup";
 import Login from "./components/auth/Login";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 // import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./components/Home";
-import NavBar from './components/NavBar';
-import 'bootstrap/dist/css/bootstrap.css';
-
+import NavBar from "./components/NavBar";
+import UserProfile from "./components/UserProfile";
+import CreatPost from "./components/CreatPost"
+import "bootstrap/dist/css/bootstrap.css";
 
 class App extends Component {
   state = {
@@ -23,8 +24,8 @@ class App extends Component {
     // console.log(this.state.user);
     return (
       <div className="App">
-       <NavBar  user={this.state.user} setUser={this.setUser}   />
-       {/* <Home  user={this.state.user}  /> */}
+        <NavBar user={this.state.user} setUser={this.setUser} />
+        {/* <Home  user={this.state.user}  /> */}
         <Switch>
           <Route
             exact
@@ -36,10 +37,30 @@ class App extends Component {
             path="/login"
             render={(props) => <Login setUser={this.setUser} {...props} />}
           />
-          <Route 
-           exact path="/" 
-           render={(props)=> <Home user={this.state.user} />} />
-        </Switch> 
+          <Route
+            exact
+            path="/"
+            render={(props) => <Home user={this.state.user} />}
+          />
+          <Route
+            exact
+            path="/userprofile"
+            render={(props) => {
+              if (this.state.user) {
+                return <UserProfile {...props} />;
+              } else return <Redirect to="/" />;
+            }}
+          />
+          <Route
+            exact
+            path="/creatpost"
+            render={(props) => {
+              if (this.state.user) {
+                return <CreatPost {...props} />;
+              } else return <Redirect to="/" />;
+            }}
+          />
+        </Switch>
       </div>
     );
   }

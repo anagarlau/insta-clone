@@ -25,10 +25,8 @@ class NavbarLoggedIn extends React.Component{
     <div className="collapse navbar-collapse justify-content-end" id="navbarCollapse">
         <div className="navbar-nav">
         <Link className="nav-item nav-link active"   to='/' onClick={() => this.handleLogout(this.props)} >Logout</Link>
-        {/* <Link className="nav-item nav-link active"  to={'/'} onClick={() => this.handleLogout(this.props)} >Logout</Link> */}
-         <a href="#" className="nav-item nav-link">Create Post</a>
-          <a href="#" className="nav-item nav-link">Profile</a>
-        
+        <Link className="nav-item nav-link" to={"/userprofile"}>Profile</Link>
+        <Link className="nav-item nav-link" to={"/creatpost"}>(+)</Link>
         </div>
        
     </div>
