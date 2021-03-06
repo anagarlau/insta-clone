@@ -34,7 +34,7 @@ const mongoStore = MongoStore.create({
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 },
+    // cookie: { maxAge: 1000 * 60 * 60 * 24 },
     saveUninitialized: false,
     // cookie: {
     //   sameSite: "none",

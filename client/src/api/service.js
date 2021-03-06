@@ -26,6 +26,7 @@ export default {
  
   createPost(post) {
     // console.log('new thing is: ', newThing)
+   
     return service
       .post('/posts/postIt', post)
       .then(res => res.data)

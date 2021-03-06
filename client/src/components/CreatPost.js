@@ -52,12 +52,11 @@ class CreatePost extends React.Component {
       });
   };
    
-
- 
-
+  
   render() {
     console.log("this is the state", this.state);
     console.log(this.state)
+  
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
