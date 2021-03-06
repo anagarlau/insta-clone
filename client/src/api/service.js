@@ -2,8 +2,9 @@ import axios from 'axios';
 
 
 const service = axios.create({
-  baseURL: 'http://localhost:5005'
-
+  baseURL: 'http://localhost:5005/api',
+   withCredentials: true 
+  // withCredentials: true // => you might need this when having the users in the app
 });
 
 const errorHandler = err => {
@@ -11,26 +12,24 @@ const errorHandler = err => {
   throw err;
 };
 
-const handleUpload = (theFile) => {
-  // console.log('file in service: ', theFile)
-  return service
-    .post('/api/posts/upload', theFile)
-    .then(res => res.data)
-    .catch(errorHandler);
-}
 
-const createPost = (post) => {
-  // console.log('new thing is: ', newThing)
-  return service
-    .post('/api/posts/postIt', post)
-    .then(res => res.data)
-    .catch(errorHandler);
-}
-
-// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   service,
-  handleUpload,
-  createPost
-}
+ 
+  handleUpload(theFile) {
+    // console.log('file in service: ', theFile)
+    return service
+      .post('/posts/upload', theFile)
+      .then(res => res.data)
+      .catch(errorHandler);
+  },
+ 
+  createPost(post) {
+    // console.log('new thing is: ', newThing)
+    return service
+      .post('/posts/postIt', post)
+      .then(res => res.data)
+      .catch(errorHandler);
+  }
+};
 

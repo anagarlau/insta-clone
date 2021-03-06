@@ -1,47 +1,63 @@
 import React from "react";
 import axios from "axios";
-// import service from "../api/service"
+import service from '../api/service'
 
 
 class CreatePost extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      imgURL: "",
-      description: "",
-    };
+  state = {
+    description: '',
+    imgURL: ''
+  };
+ 
+   
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  handleChange = e => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
 
-  handleChange(event) {
-    console.log("this is event", event.target.value);
-    this.setState({ [event.target.name]: event.target.value });
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    axios
-      .post("/api/posts/postIt", {
-        imgURL: this.state.imgURL,
-        description: this.state.description,
+  
+  handleFileUpload = e => {
+    console.log('The file to be uploaded is: ', e.target.files[0]);
+ 
+    const uploadData = new FormData();
+    // imageUrl => this name has to be the same as in the model since we pass
+    // req.body to .create() method when creating a new thing in '/api/things/create' POST route
+    uploadData.append('imgURL', e.target.files[0]);
+ 
+    service
+      .handleUpload(uploadData)
+      .then(response => {
+        // console.log('response is: ', response);
+        // after the console.log we can see that response carries 'secure_url' which we can use to update the state
+        this.setState({ imgURL: response.secure_url });
       })
-      .then((response) => {
-        console.log(response);
-        this.setState({
-          imgURL: "",
-          description: "",
-        });
+      .catch(err => {
+        console.log('Error while uploading the file: ', err);
+      });
+  };
+ 
+  handleSubmit = e => {
+    e.preventDefault();
+ 
+    service
+      .createPost(this.state)
+      .then(res => {
+        console.log('added: ', res);
+        // here you would redirect to some other page
         this.props.history.push('/userprofile');
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(err => {
+        console.log('Error while adding the thing: ', err);
       });
-  }
+  };
+   
+
+ 
 
   render() {
-    console.log("this is the state", this.state.value);
+    console.log("this is the state", this.state);
+    console.log(this.state)
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
@@ -52,14 +68,9 @@ class CreatePost extends React.Component {
             onChange={this.handleChange}
           />
         </label>
-        <label>
-          Img:
-          <input
-            value={this.state.imgURL}
-            name="imgURL"
-            onChange={this.handleChange}
-          />
-        </label>
+        <label>   Img:   </label>
+          <input type="file" onChange={e => this.handleFileUpload(e)} />
+     
         <button type="submit">Post</button>
       </form>
     );

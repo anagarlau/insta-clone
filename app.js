@@ -1,4 +1,5 @@
 require("dotenv/config");
+
 // Handles http requests (express is node js framework)
 const express = require("express");
 const app = express();
@@ -17,7 +18,9 @@ require("./config")(app);
 app.use(
   cors({
     // this could be multiple domains/origins, but we will allow just our React app
-    origin: ['http://localhost:3000']
+    origin: ['http://localhost:3000'],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true, // allow session cookie from browser to pass through
   })
 );
 //SESSION SETUP
@@ -26,21 +29,21 @@ const mongoStore = MongoStore.create({
   collectionName: "sessions",
 });
 
+// const MongoStore = require('connect-mongo').default;
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: false, // <== false if you don't want to save empty session object to the store
+    cookie: { maxAge: 1000 * 60 * 60 * 24 },
+    saveUninitialized: false,
     // cookie: {
     //   sameSite: "none",
     //   httpOnly: true,
     //   maxAge: 60 * 1000 * 60,
     // },
     // store: mongoStore
-  
   })
-);
-
+)
 //define strategies
 passport.serializeUser((user, cb) => cb(null, user._id));
 
@@ -84,9 +87,10 @@ require("./db");
 //   origin: ['http://localhost:3000']
 // }));
 //ROUTE HANDLING
-const index = require("./routes/index");
-app.use("/api", index);
+const allRoutes = require("./routes");
+app.use("/api", allRoutes);
 
+// app.use('/api', require('./routes/index'))
 const auth = require('./routes/auth')
 app.use('/api/auth', auth)
 

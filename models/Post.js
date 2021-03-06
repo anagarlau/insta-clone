@@ -4,7 +4,6 @@ const postSchema = new Schema(
   {
     imgURL: {
       type: String,
-      required: true,
     },
     description: String,
 

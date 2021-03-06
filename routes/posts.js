@@ -4,7 +4,30 @@ const Post = require("../models/Post");
 const { uploader, cloudinary } = require('../config/config');
 
 
-router.post('/upload', loginCheck(), uploader.single('imgURL'), (req, res, next) => {
+
+
+router.get("/allPosts",  async (req, res) => {
+  try {
+    const allPosts = await Post.find().populate("postedBy");
+
+    res.json(allPosts);
+  } catch (err) {
+    res.status(500).send();
+  }
+});
+
+// router.post('/upload', uploader.single('imageUrl'), (req, res, next) => {
+//   // console.log('file is: ', req.file)
+ 
+//   if (!req.file) {
+//     next(new Error('No file uploaded!'));
+//     return;
+//   }
+
+// })
+
+
+router.post('/upload',  uploader.single('imgURL'), (req, res, next) => {
   
   if (!req.file) {
     next(new Error('No file uploaded!'));
@@ -14,7 +37,7 @@ router.post('/upload', loginCheck(), uploader.single('imgURL'), (req, res, next)
 });
 
 
-router.post("/postIt", loginCheck(), uploader.single('imgURL'), (req, res, next) => {
+router.post("/postIt", (req, res, next) => {
     const { description, imgURL } = req.body;
     
     if (!description) {
@@ -26,7 +49,7 @@ router.post("/postIt", loginCheck(), uploader.single('imgURL'), (req, res, next)
     Post.create({
       description: description,
       imgURL: imgURL,
-      // postedBy: req.user,
+      postedBy: req.user,
     })
       .then((createdPost) => {
         res.status(200).json(createdPost);
@@ -36,19 +59,12 @@ router.post("/postIt", loginCheck(), uploader.single('imgURL'), (req, res, next)
       });
   });
 
-router.get("/allPosts", loginCheck(), async (req, res) => {
-  try {
-    const allPosts = await Post.find().populate("postedBy");
 
-    res.json(allPosts);
-  } catch (err) {
-    res.status(500).send();
-  }
-});
 
-router.get("/userPosts", loginCheck(), async (req, res) => {
+router.get("/userPosts",  async (req, res) => {
   try {
-    const userPosts = await Post.find({ postedBy: req.user._id }).populate(
+    const userPosts = await Post.find({ postedBy: req.user._id })
+    .populate(
       "postedBy"
     );
     res.json(userPosts);

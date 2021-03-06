@@ -40,7 +40,7 @@ class App extends Component {
           <Route
             exact
             path="/"
-            render={(props) => <Home user={this.state.user} />}
+            render={(props) => <Home user={this.state.user} {...props} />}
           />
           <Route
             exact
