@@ -18,6 +18,7 @@ class CreatePost extends React.Component {
 
   
   handleFileUpload = e => {
+    e.preventDefault();
     console.log('The file to be uploaded is: ', e.target.files[0]);
  
     const uploadData = new FormData();
