@@ -29,9 +29,9 @@ class UserProfile extends React.Component {
 
   render() {
     return (
-      <div className="d-flex justify-content-center column">
+      <div className='wall'>
         {this.state.posts.map((post) => (
-          <div key={post._id} className="card" style={{ width: "18rem" }}>
+          <div key={post._id} className="post" style={{ width: "18rem" }}>
             <div className="card-body">
               <h5 className="card-title"> {post.postedBy.username}</h5>
               <img

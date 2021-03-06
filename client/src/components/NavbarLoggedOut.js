@@ -4,7 +4,7 @@ class NavbarLoggedOut extends React.Component{
 
 
   render(){
-    return   (<nav className="navbar navbar-expand-md navbar-light bg-light">
+    return   (<nav className="navbar navbar-expand-md navbar-light navBg">
    
     <Link className="navbar-brand" to={'/'}> Instagram  </Link>
    

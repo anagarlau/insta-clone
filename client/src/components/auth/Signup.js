@@ -8,24 +8,23 @@ class Signup extends Component {
     console.log(event);
     event.preventDefault();
     const { username, password, email } = this.state;
-    signup(username, password, email)
-      .then(user => {
-        if (user.errorMessage) {
-          this.setState({
-            message: user.errorMessage,
-            username: '',
-            password: '',
-            email: ''
-          })
-        } else {
-          // the response from the server is a user object -> signup was successful
-          // we want to put the user object in the state of App.js
-          // console.log(user)
-          this.props.setUser(user);
-          this.props.history.push('/');
-        }
-      })
-  }
+    signup(username, password, email).then((user) => {
+      if (user.errorMessage) {
+        this.setState({
+          message: user.errorMessage,
+          username: "",
+          password: "",
+          email: "",
+        });
+      } else {
+        // the response from the server is a user object -> signup was successful
+        // we want to put the user object in the state of App.js
+        // console.log(user)
+        this.props.setUser(user);
+        this.props.history.push("/");
+      }
+    });
+  };
 
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -66,7 +65,6 @@ class Signup extends Component {
 
           <input type="submit" value="Signup" />
         </form>
-
       </div>
     );
   }
