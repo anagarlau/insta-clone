@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import { login } from "../../services/auth-service";
 import "bootstrap/dist/css/bootstrap.css";
 class Login extends Component {
-  state = { username: "", password: "", email: "" };
+  state = { username: "", password: ""};
 
   handleFormSubmit = (event) => {
     // console.log(event);
     event.preventDefault();
     const { username, password } = this.state;
     login(username, password).then((user) => {
-      if (user.errorMessage) {
+      if (user.message) {
         this.setState({
-          message: user.errorMessage,
+          message: user.message,
           username: "",
           password: "",
         });
