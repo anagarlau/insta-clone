@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-//import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -34,11 +34,13 @@ class UserProfile extends React.Component {
           <div key={post._id} className="post" style={{ width: "18rem" }}>
             <div className="card-body">
               <h5 className="card-title"> {post.postedBy.username}</h5>
+              <Link to={`/allPosts/${post._id}`}>
               <img
                 src={post.imgURL}
                 className="card-img-top"
                 alt="..."
               />
+              </Link>
               <p className="card-text">{post.description}</p>
             </div>
           </div>

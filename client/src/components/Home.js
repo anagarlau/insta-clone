@@ -1,8 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
-import '../App.css';
-
+import "../App.css";
 
 class Home extends React.Component {
   constructor(props) {
@@ -28,22 +27,19 @@ class Home extends React.Component {
     this.getPosts();
   }
   render() {
-   
     const loggedIn = this.props;
-      console.log(loggedIn);
+    console.log(loggedIn);
     if (loggedIn.user) {
       if (this.state.posts.length === 0) return <h3> Loading... </h3>;
       return (
-        <div className='wall'>
+        <div className="wall">
           {this.state.posts.map((post) => (
             <div key={post._id} className="post" style={{ width: "18rem" }}>
               <div className="card-body">
                 <h5 className="card-title"> {post.postedBy.username}</h5>
-                <img
-                  src={post.imgURL}
-                  className="card-img-top"
-                  alt="..."
-                />
+                <Link to={`/allPosts/${post._id}`}>
+                  <img src={post.imgURL} className="card-img-top" alt="..." />
+                </Link>
                 <p className="card-text">{post.description}</p>
               </div>
             </div>
