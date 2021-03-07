@@ -28,9 +28,10 @@ class UserProfile extends React.Component {
   }
 
   render() {
+    if (this.state.posts.length === 0) return <h3> Loading... </h3>;
     return (
       <div className='wall'>
-        {this.state.posts.map((post) => (
+        {this.state.posts.slice(0).reverse().map((post) => (
           <div key={post._id} className="post" style={{ width: "18rem" }}>
             <div className="card-body">
               <h5 className="card-title"> {post.postedBy.username}</h5>
