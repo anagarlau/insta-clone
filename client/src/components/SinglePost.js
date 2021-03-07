@@ -29,6 +29,7 @@ class SinglePost extends React.Component {
   }
 
   render() {
+    console.log(this.state.post)
     if (this.state.post === null) return <h3> Loading... </h3>;
     const post = this.state.post
     return (

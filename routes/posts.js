@@ -5,7 +5,7 @@ const { uploader, cloudinary } = require("../config/config");
 
 router.get("/allPosts", async (req, res) => {
   try {
-    const allPosts = await Post.find().populate("postedBy");
+    const allPosts = await Post.find().populate("postedBy") 
 
     res.json(allPosts);
   } catch (err) {
@@ -13,15 +13,35 @@ router.get("/allPosts", async (req, res) => {
   }
 });
 
-router.get("/allPosts/:id", async (req, res) => {
+router.get("/allPosts/:id", loginCheck(), async (req, res) => {
   const id = req.params.id;
   try {
-    const post = await Post.findById(id).populate("postedBy");
+    const post = await Post.findById(id).populate("postedBy").populate('comments.postedBy') ;
     res.json(post);
   } catch (err) {
     res.status(500).send();
   }
 });
+
+router.post("/allPosts/:id/comment", loginCheck(), (req, res) => {
+  const comment = { comment: req.body.comment, postedBy: req.user._id };
+  const id = req.params.id;
+  Post.findByIdAndUpdate(
+    id,
+    {
+      $push: { comments: comment },
+    },
+    { next: true }
+  ) 
+    .populate('postedBy', "_id username")
+    .populate("comments.postedBy", '_id username')
+   
+    .then((comment) => {
+      console.log(comment)
+      res.json(comment);
+    });
+});
+
 // router.post('/upload', uploader.single('imageUrl'), (req, res, next) => {
 //   // console.log('file is: ', req.file)
 
