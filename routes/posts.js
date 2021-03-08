@@ -44,6 +44,35 @@ router.post("/allPosts/:id/comment", loginCheck(), (req, res) => {
     });
 });
 
+router.post('/allPosts/:id/like', loginCheck(), (req, res)=>{
+ const id=req.params.id
+ Post.findByIdAndUpdate(
+   id,
+   {$push: {likes: req.user._id}},
+   {new: true}
+ )
+ .then(response=>{
+  console.log(response)
+   res.json(response)
+ })
+ .catch(err=>{console.log(err)})
+})
+
+router.post('/allPosts/:id/unlike', loginCheck(), (req, res)=>{
+  const id=req.params.id
+  Post.findByIdAndUpdate(
+    id,
+    {$pull: {likes: req.user._id}},
+    {new: true}
+  )
+  .then(response=>{
+   
+    res.json(response)
+  })
+  .catch(err=>{console.log(err)})
+ })
+
+
 // router.post('/upload', uploader.single('imageUrl'), (req, res, next) => {
 //   // console.log('file is: ', req.file)
 

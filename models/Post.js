@@ -16,6 +16,10 @@ const postSchema = new Schema(
         comment: String,
       },
     ],
+    likes: [{
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }]
   },
   { timestamps: true }
 );

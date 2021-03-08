@@ -10,11 +10,13 @@ class SinglePost extends React.Component {
     this.state = {
       post: null,
       comment: "",
+      like: ''
     };
   }
 
   getPost() {
     const id = this.props.match.params.id;
+    console.log(id)
     axios
       .get(`/api/posts/allPosts/${id}`)
       .then((response) => {
@@ -24,6 +26,9 @@ class SinglePost extends React.Component {
         console.log(err);
       });
   }
+
+  
+
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
@@ -62,6 +67,7 @@ class SinglePost extends React.Component {
 
   handleSubmit = (e) => {
     const id = this.props.match.params.id;
+    
     e.preventDefault();
     if (this.state.comment) {
       axios
@@ -79,11 +85,56 @@ class SinglePost extends React.Component {
     }
   };
 
+  likePost =(e)=>{
+    const id = this.props.match.params.id;
+    console.log(id)
+    e.preventDefault();
+    // const id = this.props.match.params.id;
+    // const commentId = e.target.value;
+    console.log(this.state.post);
+    axios
+      .post(`/api/posts/allPosts/${id}/like`, {
+        like: this.state.like,
+      })
+      .then((response) => {
+        //this needs fixing
+        console.log(response);
+        this.setState({ post: response.data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+
+  unlikePost =(e)=>{
+    const id = this.props.match.params.id;
+    console.log(id)
+    e.preventDefault();
+    // const id = this.props.match.params.id;
+    // const commentId = e.target.value;
+    console.log(this.state.post);
+    axios
+      .post(`/api/posts/allPosts/${id}/unlike`, {
+        like: this.state.like,
+      })
+      .then((response) => {
+        //this needs fixing
+        console.log(response);
+        this.setState({ post: response.data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+
   componentDidMount() {
     this.getPost();
   }
 
   render() {
+    console.log(this.state.post)
     if (this.state.post === null) return <h3> Loading... </h3>;
     const post = this.state.post;
     return (
@@ -92,6 +143,10 @@ class SinglePost extends React.Component {
           <h5 className="card-title"> {post.postedBy.username}</h5>
           <img src={post.imgURL} className="card-img-top" alt="..." />
           <p className="card-text">{post.description}</p>
+        </div>
+        <div> 
+        <button  onClick={this.likePost}> Like </button>
+        <button onClick={this.unlikePost}> Unlike </button>
         </div>
         {this.props.user._id === this.state.post.postedBy._id ? (
           <div>
