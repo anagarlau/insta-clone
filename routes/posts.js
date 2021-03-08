@@ -34,13 +34,13 @@ router.post("/allPosts/:id/comment", loginCheck(), (req, res) => {
     {
       $push: { comments: comment },
     },
-    { next: true }
+    { new: true }
   )
     .populate("postedBy", "_id username")
     .populate("comments.postedBy", "_id username")
-    .then((comment) => {
-      console.log(comment);
-      res.json(comment);
+    .then((response) => {
+      console.log(response);
+      res.json(response);
     });
 });
 
@@ -114,11 +114,13 @@ router.post("/allPosts/:id/uncomment", loginCheck(), (req, res, next) => {
     {
       $pull: { comments: { _id: commentId } },
     },
-    { next: true }
+    { new: true }
   )
-
-    .then((comment) => {
-      res.json(comment);
+    .populate("postedBy", "_id username")
+    .populate("comments.postedBy", "_id username")
+    .then((response) => {
+      console.log(response);
+      res.json(response);
     })
     .catch((err) => {
       next(err);

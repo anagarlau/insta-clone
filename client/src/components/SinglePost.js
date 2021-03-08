@@ -27,8 +27,8 @@ class SinglePost extends React.Component {
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
-    console.log(this.props.user._id);
-    console.log(this.state.post.comments);
+    // console.log(this.props.user._id);
+    // console.log(this.state.post.comments);
   };
 
   handlePostDelete = () => {
@@ -45,7 +45,6 @@ class SinglePost extends React.Component {
     e.preventDefault();
     const id = this.props.match.params.id;
     const commentId = e.target.value;
-    console.log(commentId);
     console.log(this.state.post);
     axios
       .post(`/api/posts/allPosts/${id}/uncomment`, {
@@ -53,8 +52,8 @@ class SinglePost extends React.Component {
       })
       .then((response) => {
         //this needs fixing
+        console.log(response);
         this.setState({ post: response.data });
-        window.location.reload(false);
       })
       .catch((err) => {
         console.log(err);
@@ -73,7 +72,6 @@ class SinglePost extends React.Component {
           //this needs fixing
           console.log(response);
           this.setState({ comment: "", post: response.data});
-          window.location.reload(false);
         })
         .catch((err) => {
           console.log(err);
