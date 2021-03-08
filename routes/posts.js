@@ -5,8 +5,9 @@ const { uploader, cloudinary } = require("../config/config");
 
 router.get("/allPosts", async (req, res) => {
   try {
-    const allPosts = await Post.find().populate("postedBy") 
-
+    const allPosts = await Post.find()
+      .populate("postedBy", "_id username")
+      .populate("comments.postedBy", "_id username");
     res.json(allPosts);
   } catch (err) {
     res.status(500).send();
@@ -16,7 +17,9 @@ router.get("/allPosts", async (req, res) => {
 router.get("/allPosts/:id", loginCheck(), async (req, res) => {
   const id = req.params.id;
   try {
-    const post = await Post.findById(id).populate("postedBy").populate('comments.postedBy') ;
+    const post = await Post.findById(id)
+      .populate("postedBy", "_id username")
+      .populate("comments.postedBy", "_id username");
     res.json(post);
   } catch (err) {
     res.status(500).send();
@@ -32,12 +35,11 @@ router.post("/allPosts/:id/comment", loginCheck(), (req, res) => {
       $push: { comments: comment },
     },
     { next: true }
-  ) 
-    .populate('postedBy', "_id username")
-    .populate("comments.postedBy", '_id username')
-   
+  )
+    .populate("postedBy", "_id username")
+    .populate("comments.postedBy", "_id username")
     .then((comment) => {
-      console.log(comment)
+      console.log(comment);
       res.json(comment);
     });
 });
@@ -82,15 +84,45 @@ router.post("/postIt", (req, res, next) => {
   }
 });
 
+router.delete("/allPosts/:id", loginCheck(), (req, res, next) => {
+  Post.findByIdAndDelete(req.params.id).then(() => {
+    res
+      .status(200)
+      .json({ message: "post deleted" })
+      .catch((err) => {
+        next(err);
+      });
+  });
+});
+
 router.get("/userPosts", async (req, res) => {
   try {
-    const userPosts = await Post.find({ postedBy: req.user._id }).populate(
-      "postedBy"
-    );
+    const userPosts = await Post.find({ postedBy: req.user._id })
+      .populate("postedBy", "_id username")
+      .populate("comments.postedBy", "_id username");
     res.json(userPosts);
   } catch (err) {
     res.status(500).send();
   }
+});
+
+router.post("/allPosts/:id/uncomment", loginCheck(), (req, res, next) => {
+  const id = req.params.id;
+  const commentId = req.body.commentId;
+  Post.findByIdAndUpdate(
+    id,
+    {
+      $pull: { comments: { _id: commentId } },
+    },
+    { next: true }
+  )
+
+    .then((comment) => {
+      res.json(comment);
+    })
+    .catch((err) => {
+      next(err);
+    });
 });
 
 module.exports = router;

@@ -28,7 +28,37 @@ class SinglePost extends React.Component {
     const { name, value } = e.target;
     this.setState({ [name]: value });
     console.log(this.props.user._id);
-    console.log(this.state.post.postedBy._id);
+    console.log(this.state.post.comments);
+  };
+
+  handlePostDelete = () => {
+    const id = this.props.match.params.id;
+    axios
+      .delete(`/api/posts/allPosts/${id}`)
+      .then(this.props.history.push("/"))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  handleCommentDelete = (e) => {
+    e.preventDefault();
+    const id = this.props.match.params.id;
+    const commentId = e.target.value;
+    console.log(commentId);
+    console.log(this.state.post);
+    axios
+      .post(`/api/posts/allPosts/${id}/uncomment`, {
+        commentId: commentId,
+      })
+      .then((response) => {
+        //this needs fixing
+        this.setState({ post: response.data });
+        window.location.reload(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   handleSubmit = (e) => {
@@ -40,7 +70,9 @@ class SinglePost extends React.Component {
           comment: this.state.comment,
         })
         .then((response) => {
-          this.setState({ comment: "" });
+          //this needs fixing
+          console.log(response);
+          this.setState({ comment: "", post: response.data});
           window.location.reload(false);
         })
         .catch((err) => {
@@ -48,6 +80,7 @@ class SinglePost extends React.Component {
         });
     }
   };
+
   componentDidMount() {
     this.getPost();
   }
@@ -61,9 +94,14 @@ class SinglePost extends React.Component {
           <h5 className="card-title"> {post.postedBy.username}</h5>
           <img src={post.imgURL} className="card-img-top" alt="..." />
           <p className="card-text">{post.description}</p>
-          
         </div>
-        {this.props.user._id === this.state.post.postedBy._id ? <div><button>Delete</button></div> : ''}
+        {this.props.user._id === this.state.post.postedBy._id ? (
+          <div>
+            <button onClick={this.handlePostDelete}>Delete</button>
+          </div>
+        ) : (
+          ""
+        )}
         <div>
           <form onSubmit={this.handleSubmit}>
             <label>
@@ -85,6 +123,16 @@ class SinglePost extends React.Component {
                 <div key={comment._id}>
                   <h3>{comment.postedBy.username}</h3>
                   {comment.comment}
+                  {this.props.user._id === comment.postedBy._id ? (
+                    <button
+                      value={comment._id}
+                      onClick={this.handleCommentDelete}
+                    >
+                      Delete
+                    </button>
+                  ) : (
+                    ""
+                  )}
                 </div>
               ))}
           </div>
