@@ -35,7 +35,6 @@ class UserProfile extends React.Component {
     // console.log(this.props)
     return (
       <div className="wall">
-
         {this.state.posts
           .slice(0)
           .reverse()

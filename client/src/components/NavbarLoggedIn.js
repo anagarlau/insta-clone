@@ -15,15 +15,22 @@ class NavbarLoggedIn extends React.Component {
   }
 
   getUserImage = (e) => {
+    let ba = "";
     const uploadData = new FormData();
-    uploadData.append("imgURL", e.target.files[0]);
     console.log(e.target.files[0]);
+    uploadData.append("imgURL", e.target.files[0]);
     service
       .handleUploadPicture(uploadData)
       .then((res) => {
+        ba = res.secure_url;
+      })
+      .catch((err) => {
+        console.log("Error while adding the thing: ", err);
+      })
+      .finally(() => {
         axios
           .post("/api/profiles/picture", {
-            imgURL: res.secure_url,
+            imgURL: ba,
           })
           .then((response) => {
             console.log(response);
@@ -32,10 +39,6 @@ class NavbarLoggedIn extends React.Component {
           .catch((err) => {
             console.log("Error while adding the thing: ", err);
           });
-        console.log("added: ", res);
-      })
-      .catch((err) => {
-        console.log("Error while adding the thing: ", err);
       });
   };
 
@@ -64,7 +67,7 @@ class NavbarLoggedIn extends React.Component {
           <div className="navbar-nav">
             <div>
               <form className="userImgForm">
-                <label for="file-input">
+                <label htmlFor="file-input">
                   <img
                     alt="imageuser"
                     style={{ width: "30px" }}
@@ -74,7 +77,7 @@ class NavbarLoggedIn extends React.Component {
                 <input
                   id="file-input"
                   type="file"
-                  onClick={this.getUserImage}
+                  onChange={this.getUserImage}
                 />
               </form>
             </div>
