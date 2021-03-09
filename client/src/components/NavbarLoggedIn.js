@@ -17,6 +17,7 @@ class NavbarLoggedIn extends React.Component{
   }
 
   render(){
+     
     return  (<nav className="navbar navbar-expand-md navbar-light navBg" style={{backgroundColor:'pink'}}>
    
     <Link className="navbar-brand" to={'/'}> Instagram  </Link>
@@ -25,7 +26,7 @@ class NavbarLoggedIn extends React.Component{
     <div className="collapse navbar-collapse justify-content-end" id="navbarCollapse">
         <div className="navbar-nav">
         <Link className="nav-item nav-link active"   to='/' onClick={() => this.handleLogout(this.props)} >Logout</Link>
-        <Link className="nav-item nav-link" to={"/userprofile"}>Profile</Link>
+        <Link className="nav-item nav-link" to={"/userprofile"}>{this.props.user.username}'s Profile</Link>
         <Link className="nav-item nav-link" to={"/creatpost"}> <img className='addButton' src='/img/add-button-pngrepo-com.png' alt='add'/></Link>
         </div>
        

@@ -11,7 +11,8 @@ class SinglePost extends React.Component {
       post: null,
       comment: "",
       like: "",
-    };
+    }
+    
   }
 
   getPost() {
@@ -74,7 +75,7 @@ class SinglePost extends React.Component {
         })
         .then((response) => {
           //this needs fixing
-          console.log(response);
+          // console.log(response);
           this.setState({ comment: "", post: response.data });
         })
         .catch((err) => {
@@ -96,7 +97,9 @@ class SinglePost extends React.Component {
       })
       .then((response) => {
         //this needs fixing
-        console.log(response);
+        // this.props.user._id === this.state.post.postedBy._id ? (
+        console.log(response.data)
+        console.log(this.props.user._id)
         this.setState({ post: response.data });
       })
       .catch((err) => {
@@ -117,8 +120,8 @@ class SinglePost extends React.Component {
       })
       .then((response) => {
         //this needs fixing
-        console.log(response);
-        this.setState({ post: response.data });
+        console.log(response.data);
+        this.setState({post: response.data });
       })
       .catch((err) => {
         console.log(err);
@@ -130,7 +133,7 @@ class SinglePost extends React.Component {
   }
 
   render() {
-    console.log(this.state.post);
+    // console.log(this.state.post);
     if (this.state.post === null) return <h3> Loading... </h3>;
     const post = this.state.post;
     return (

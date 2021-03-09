@@ -96,7 +96,11 @@ app.use('/api/auth', auth)
 
 const posts = require('./routes/posts')
 app.use('/api/posts', posts)
+
+const profiles = require('./routes/profiles')
+app.use('/api/profiles', profiles)
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
+
 require("./error-handling")(app);
 
 module.exports = app;

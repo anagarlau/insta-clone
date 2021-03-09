@@ -8,80 +8,12 @@ router.get("/allPosts", async (req, res) => {
     const allPosts = await Post.find()
       .populate("postedBy", "_id username")
       .populate("comments.postedBy", "_id username");
+      
     res.json(allPosts);
   } catch (err) {
     res.status(500).send();
   }
 });
-
-router.get("/allPosts/:id", loginCheck(), async (req, res) => {
-  const id = req.params.id;
-  try {
-    const post = await Post.findById(id)
-      .populate("postedBy", "_id username")
-      .populate("comments.postedBy", "_id username");
-    res.json(post);
-  } catch (err) {
-    res.status(500).send();
-  }
-});
-
-router.post("/allPosts/:id/comment", loginCheck(), (req, res) => {
-  const comment = { comment: req.body.comment, postedBy: req.user._id };
-  const id = req.params.id;
-  Post.findByIdAndUpdate(
-    id,
-    {
-      $push: { comments: comment },
-    },
-    { new: true }
-  )
-    .populate("postedBy", "_id username")
-    .populate("comments.postedBy", "_id username")
-    .then((response) => {
-      console.log(response);
-      res.json(response);
-    });
-});
-
-router.post('/allPosts/:id/like', loginCheck(), (req, res)=>{
- const id=req.params.id
- Post.findByIdAndUpdate(
-   id,
-   {$push: {likes: req.user._id}},
-   {new: true}
- )
- .then(response=>{
-  console.log(response)
-   res.json(response)
- })
- .catch(err=>{console.log(err)})
-})
-
-router.post('/allPosts/:id/unlike', loginCheck(), (req, res)=>{
-  const id=req.params.id
-  Post.findByIdAndUpdate(
-    id,
-    {$pull: {likes: req.user._id}},
-    {new: true}
-  )
-  .then(response=>{
-   
-    res.json(response)
-  })
-  .catch(err=>{console.log(err)})
- })
-
-
-// router.post('/upload', uploader.single('imageUrl'), (req, res, next) => {
-//   // console.log('file is: ', req.file)
-
-//   if (!req.file) {
-//     next(new Error('No file uploaded!'));
-//     return;
-//   }
-
-// })
 
 router.post("/upload", uploader.single("imgURL"), (req, res, next) => {
   if (!req.file) {
@@ -113,6 +45,94 @@ router.post("/postIt", (req, res, next) => {
   }
 });
 
+router.get("/userPosts", async (req, res) => {
+  try {
+    const userPosts = await Post.find({ postedBy: req.user._id })
+      .populate("postedBy", "_id username")
+      .populate("comments.postedBy", "_id username");
+    res.json(userPosts);
+  } catch (err) {
+    res.status(500).send();
+  }
+});
+
+
+router.get("/allPosts/:id", loginCheck(), async (req, res) => {
+  const id = req.params.id;
+  try {
+    const post = await Post.findById(id)
+      .populate("postedBy", "_id username")
+      .populate("comments.postedBy", "_id username");
+     
+    res.json(post);
+  } catch (err) {
+    res.status(500).send();
+  }
+});
+
+router.post("/allPosts/:id/comment", loginCheck(), (req, res) => {
+  const comment = { comment: req.body.comment, postedBy: req.user._id };
+  const id = req.params.id;
+  Post.findByIdAndUpdate(
+    id,
+    {
+      $push: { comments: comment },
+    },
+    { new: true }
+  )
+    .populate("postedBy", "_id username")
+    .populate("comments.postedBy", "_id username")
+    .then((response) => {
+      console.log(response);
+      res.json(response);
+    });
+});
+
+router.post('/allPosts/:id/like', loginCheck(), (req, res)=>{
+ const id=req.params.id
+ Post.findByIdAndUpdate(
+   id,
+   {$push: {likes: req.user._id}},
+   {new: true}
+ )
+ .populate("postedBy")
+ .populate("comments.postedBy", "_id username")
+ .then(response=>{
+  // console.log(response)
+   res.json(response)
+ })
+ .catch(err=>{console.log(err)})
+})
+
+router.post('/allPosts/:id/unlike', loginCheck(), (req, res)=>{
+  const id=req.params.id
+  Post.findByIdAndUpdate(
+    id,
+    {$pull: {likes: req.user._id}},
+    {new: true}
+  )
+  .populate("postedBy")
+  .populate("comments.postedBy", "_id username")
+  .then(response=>{
+   
+    res.json(response)
+  })
+  .catch(err=>{console.log(err)})
+ })
+
+
+// router.post('/upload', uploader.single('imageUrl'), (req, res, next) => {
+//   // console.log('file is: ', req.file)
+
+//   if (!req.file) {
+//     next(new Error('No file uploaded!'));
+//     return;
+//   }
+
+// })
+
+
+
 router.delete("/allPosts/:id", loginCheck(), (req, res, next) => {
   Post.findByIdAndDelete(req.params.id).then(() => {
     res
@@ -124,16 +144,6 @@ router.delete("/allPosts/:id", loginCheck(), (req, res, next) => {
   });
 });
 
-router.get("/userPosts", async (req, res) => {
-  try {
-    const userPosts = await Post.find({ postedBy: req.user._id })
-      .populate("postedBy", "_id username")
-      .populate("comments.postedBy", "_id username");
-    res.json(userPosts);
-  } catch (err) {
-    res.status(500).send();
-  }
-});
 
 router.post("/allPosts/:id/uncomment", loginCheck(), (req, res, next) => {
   const id = req.params.id;
