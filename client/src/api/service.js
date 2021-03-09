@@ -33,13 +33,13 @@ export default {
       .catch(errorHandler);
   },
 
-  // handleUploadPicture(theFile) {
-  //   // console.log('file in service: ', theFile)
-  //   return service
-  //     .post('/profiles/uploadpicture', theFile)
-  //     .then(res => res.data)
-  //     .catch(errorHandler);
-  // },
+  handleUploadPicture(theFile) {
+    // console.log('file in service: ', theFile)
+    return service
+      .post('/profiles/uploadpicture', theFile)
+      .then(res => res.data)
+      .catch(errorHandler);
+  },
  
   // createPicture(photo) {
   //   // console.log('new thing is: ', newThing)

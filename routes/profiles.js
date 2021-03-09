@@ -31,7 +31,7 @@ router.post("/uploadpicture", uploader.single("imgURL"), (req, res, next) => {
 
 router.post('/picture', (req, res)=>{
   const id=req.user._id
-  const {imgURL} = req.body
+  const imgURL = req.body.imgURL
   User.findByIdAndUpdate(id, {$set: {imgURL: imgURL}}, {new:true})
   .then(response=>res.json(response))
   .catch(err=>console.log(err))

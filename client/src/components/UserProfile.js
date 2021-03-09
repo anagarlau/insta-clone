@@ -35,18 +35,6 @@ class UserProfile extends React.Component {
     // console.log(this.props)
     return (
       <div className="wall">
-        <div>
-          <form className="userImgForm">
-            <label for="file-input">
-              <img
-                alt="imageuser"
-                style={{ width: "30px" }}
-                src={this.props.user.imgURL}
-              />
-            </label>
-            <input id="file-input" type="file" />
-          </form>
-        </div>
 
         {this.state.posts
           .slice(0)
