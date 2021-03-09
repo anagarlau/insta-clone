@@ -92,7 +92,7 @@ class SinglePost extends React.Component {
   unlikePost = (e) => {
     const id = this.props.match.params.id;
     e.preventDefault();
-    console.log(this.state.post);
+    // console.log(this.state.post);
     axios
       .post(`/api/posts/allPosts/${id}/unlike`, {
         like: this.state.like,

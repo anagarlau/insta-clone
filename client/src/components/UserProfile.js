@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import {Link} from 'react-router-dom'
+import service from "../api/service";
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -8,6 +9,8 @@ class UserProfile extends React.Component {
     this.getPosts = this.getPosts.bind(this);
     this.state = {
       posts: [],
+      imgURL: "",
+      isFileUpoading: false,
     };
   }
 
@@ -29,8 +32,16 @@ class UserProfile extends React.Component {
 
   render() {
     if (this.state.posts.length === 0) return <h3> Loading... </h3>;
+    // console.log(this.props)
     return (
       <div className='wall'>
+        <div> 
+       {/* <form> 
+         <img alt='imageuser' style={{width: '30px'}} src={this.props.user.imgURL} /> 
+         <input  type="file" /> 
+        </form>  */}
+        </div>
+
         {this.state.posts.slice(0).reverse().map((post) => (
           <div key={post._id} className="post" style={{ width: "18rem" }}>
             <div className="card-body">

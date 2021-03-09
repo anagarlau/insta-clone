@@ -13,7 +13,12 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  imgURL: {
+    type: String,
+    default: "https://i.stack.imgur.com/l60Hf.png"
+  },
+
 });
 
 const User = model("User", userSchema);

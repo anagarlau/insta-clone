@@ -31,6 +31,25 @@ export default {
       .post('/posts/postIt', post)
       .then(res => res.data)
       .catch(errorHandler);
-  }
+  },
+
+  // handleUploadPicture(theFile) {
+  //   // console.log('file in service: ', theFile)
+  //   return service
+  //     .post('/profiles/uploadpicture', theFile)
+  //     .then(res => res.data)
+  //     .catch(errorHandler);
+  // },
+ 
+  // createPicture(photo) {
+  //   // console.log('new thing is: ', newThing)
+   
+  //   return service
+  //     .post('/profiles/picture', photo)
+  //     .then(res => res.data)
+  //     .catch(errorHandler);
+  // }
+
+
 };
 
