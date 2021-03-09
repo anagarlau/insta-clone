@@ -6,8 +6,9 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 import UserProfile from "./components/UserProfile";
-import CreatPost from "./components/CreatPost"
-import SinglePost from "./components/SinglePost"
+import CreatPost from "./components/CreatPost";
+import SinglePost from "./components/SinglePost";
+import OtherUserProfile from "./components/OtherUserProfile"; 
 import "bootstrap/dist/css/bootstrap.css";
 import './App.css';
 
@@ -56,6 +57,15 @@ class App extends Component {
             render={(props) => {
               if (this.state.user) {
                 return <UserProfile {...props} />;
+              } else return <Redirect to="/" />;
+            }}
+          />
+          <Route
+            exact
+            path="/otheruser/:id"
+            render={(props) => {
+              if (this.state.user) {
+                return <OtherUserProfile {...props} />;
               } else return <Redirect to="/" />;
             }}
           />

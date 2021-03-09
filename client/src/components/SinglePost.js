@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../App.css";
 
 class SinglePost extends React.Component {
@@ -11,13 +11,11 @@ class SinglePost extends React.Component {
       post: null,
       comment: "",
       like: "",
-    }
-    
+    };
   }
 
   getPost() {
     const id = this.props.match.params.id;
-    console.log(id);
     axios
       .get(`/api/posts/allPosts/${id}`)
       .then((response) => {
@@ -31,8 +29,6 @@ class SinglePost extends React.Component {
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
-    // console.log(this.props.user._id);
-    // console.log(this.state.post.comments);
   };
 
   handlePostDelete = () => {
@@ -49,14 +45,11 @@ class SinglePost extends React.Component {
     e.preventDefault();
     const id = this.props.match.params.id;
     const commentId = e.target.value;
-    console.log(this.state.post);
     axios
       .post(`/api/posts/allPosts/${id}/uncomment`, {
         commentId: commentId,
       })
       .then((response) => {
-        //this needs fixing
-        console.log(response);
         this.setState({ post: response.data });
       })
       .catch((err) => {
@@ -66,7 +59,6 @@ class SinglePost extends React.Component {
 
   handleSubmit = (e) => {
     const id = this.props.match.params.id;
-
     e.preventDefault();
     if (this.state.comment) {
       axios
@@ -74,8 +66,6 @@ class SinglePost extends React.Component {
           comment: this.state.comment,
         })
         .then((response) => {
-          //this needs fixing
-          // console.log(response);
           this.setState({ comment: "", post: response.data });
         })
         .catch((err) => {
@@ -86,20 +76,12 @@ class SinglePost extends React.Component {
 
   likePost = (e) => {
     const id = this.props.match.params.id;
-    console.log(id);
     e.preventDefault();
-    // const id = this.props.match.params.id;
-    // const commentId = e.target.value;
-    console.log(this.state.post);
     axios
       .post(`/api/posts/allPosts/${id}/like`, {
         like: this.state.like,
       })
       .then((response) => {
-        //this needs fixing
-        // this.props.user._id === this.state.post.postedBy._id ? (
-        console.log(response.data)
-        console.log(this.props.user._id)
         this.setState({ post: response.data });
       })
       .catch((err) => {
@@ -109,19 +91,14 @@ class SinglePost extends React.Component {
 
   unlikePost = (e) => {
     const id = this.props.match.params.id;
-    console.log(id);
     e.preventDefault();
-    // const id = this.props.match.params.id;
-    // const commentId = e.target.value;
     console.log(this.state.post);
     axios
       .post(`/api/posts/allPosts/${id}/unlike`, {
         like: this.state.like,
       })
       .then((response) => {
-        //this needs fixing
-        console.log(response.data);
-        this.setState({post: response.data });
+        this.setState({ post: response.data });
       })
       .catch((err) => {
         console.log(err);
@@ -133,13 +110,20 @@ class SinglePost extends React.Component {
   }
 
   render() {
-    // console.log(this.state.post);
     if (this.state.post === null) return <h3> Loading... </h3>;
     const post = this.state.post;
     return (
       <div key={post._id} className="post" style={{ width: "18rem" }}>
         <div className="card-body">
-          <h5 className="card-title"> {post.postedBy.username}</h5>
+          {this.props.user._id === post.postedBy._id ? (
+            <Link to={`/userprofile`}>
+              <h5 className="card-title"> {post.postedBy.username}</h5>
+            </Link>
+          ) : (
+            <Link to={`/otheruser/${post.postedBy._id}`}>
+              <h5 className="card-title"> {post.postedBy.username}</h5>
+            </Link>
+          )}
           <img src={post.imgURL} className="card-img-top" alt="..." />
           <p className="card-text">{post.description}</p>
         </div>

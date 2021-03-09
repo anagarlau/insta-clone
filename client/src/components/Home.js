@@ -28,7 +28,6 @@ class Home extends React.Component {
   }
   render() {
     const loggedIn = this.props;
-    console.log(loggedIn);
     if (loggedIn.user) {
       if (this.state.posts.length === 0) return <h3> Loading... </h3>;
       return (
@@ -39,20 +38,27 @@ class Home extends React.Component {
             .map((post) => (
               <div key={post._id} className="post" style={{ width: "18rem" }}>
                 <div className="card-body">
-                  <h5 className="card-title"> {post.postedBy.username}</h5>
+                  {loggedIn.user._id === post.postedBy._id ? (
+                    <Link to={`/userprofile`}>
+                      <h5 className="card-title"> {post.postedBy.username}</h5>
+                    </Link>
+                  ) : (
+                    <Link to={`/otheruser/${post.postedBy._id}`}>
+                      <h5 className="card-title"> {post.postedBy.username}</h5>
+                    </Link>
+                  )}
+
                   <Link to={`/allPosts/${post._id}`}>
                     <img src={post.imgURL} className="card-img-top" alt="..." />
                   </Link>
                   <p className="card-text">{post.description}</p>
                   <div>
-                    {post.comments
-                      .slice(-1)
-                      .map((comment) => (
-                        <div key={comment._id}>
-                          <h3>{comment.postedBy.username}</h3>
-                          {comment.comment}
-                        </div>
-                      ))}
+                    {post.comments.slice(-1).map((comment) => (
+                      <div key={comment._id}>
+                        <h3>{comment.postedBy.username}</h3>
+                        {comment.comment}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
