@@ -57,6 +57,9 @@ class Login extends Component {
           </label>
 
           <input type="submit" value="Login" />
+          {this.state.message && (
+            <h4>{this.state.message}</h4>
+          )}
         </form>
       </div>
     );

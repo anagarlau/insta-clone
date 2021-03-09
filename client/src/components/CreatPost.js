@@ -1,9 +1,10 @@
 import React from "react";
-import axios from "axios";
+// import axios from "axios";
 import service from "../api/service";
 
 class CreatePost extends React.Component {
   state = {
+    message: '',
     description: "",
     imgURL: "",
     isFileUpoading: false,
@@ -24,7 +25,7 @@ class CreatePost extends React.Component {
     service
       .handleUpload(uploadData)
       .then((response) => {
-        // console.log('response is: ', response);
+        console.log('response is: ', response);
         // after the console.log we can see that response carries 'secure_url' which we can use to update the state
         this.setState({ imgURL: response.secure_url });
       })
@@ -46,6 +47,7 @@ class CreatePost extends React.Component {
         this.props.history.push("/userprofile");
       })
       .catch((err) => {
+        this.setState({message: 'Please make something pretty'})
         console.log("Error while adding the thing: ", err);
       });
   };
@@ -67,6 +69,9 @@ class CreatePost extends React.Component {
         <button disabled={this.state.isFileUpoading} type="submit">
           Post
         </button>
+        {this.state.message && (
+            <h4>{this.state.message}</h4>
+          )}
       </form>
     );
   }

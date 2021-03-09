@@ -64,6 +64,9 @@ class Signup extends Component {
           </label>
 
           <input type="submit" value="Signup" />
+          {this.state.message && (
+            <h4>{this.state.message}</h4>
+          )}
         </form>
       </div>
     );

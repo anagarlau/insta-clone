@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import service from "../api/service";
+// import service from "../api/service";
 import "../App.css";
 
 class UserProfile extends React.Component {

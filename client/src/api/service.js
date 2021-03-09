@@ -41,14 +41,14 @@ export default {
       .catch(errorHandler);
   },
  
-  // createPicture(photo) {
-  //   // console.log('new thing is: ', newThing)
+  createPicture(photo) {
+    // console.log('new thing is: ', newThing)
    
-  //   return service
-  //     .post('/profiles/picture', photo)
-  //     .then(res => res.data)
-  //     .catch(errorHandler);
-  // }
+    return service
+      .post('/profiles/picture', photo)
+      .then(res => res.data)
+      .catch(errorHandler);
+  }
 
 
 };
