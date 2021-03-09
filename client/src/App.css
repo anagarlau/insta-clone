@@ -21,3 +21,7 @@
 .navBg {
   background-color: rgb(238, 170, 215);
 }
+
+.userImgForm>input {
+  display: none;
+}
