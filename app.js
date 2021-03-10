@@ -13,6 +13,9 @@ const User = require("./models/User.js");
 const Post = require("./models/Post.js");
  const mongoose = require('./db/index.js')
  const cors = require('cors');
+ const path = require('path');
+ app.use(express.static(path.join(__dirname, "/client/build")));
+
 require("./config")(app);
 //cors
 app.use(
@@ -100,6 +103,11 @@ app.use('/api/posts', posts)
 const profiles = require('./routes/profiles')
 app.use('/api/profiles', profiles)
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
+
+app.use((req, res) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/client/build/index.html");
+});
 
 require("./error-handling")(app);
 
