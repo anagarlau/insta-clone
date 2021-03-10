@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Signup from "./components/auth/Signup";
-import Login from "./components/auth/Login";
 import { Switch, Route, Redirect } from "react-router-dom";
 // import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./components/Home";
@@ -36,15 +35,11 @@ class App extends Component {
             path="/signup"
             render={(props) => <Signup setUser={this.setUser} {...props} />}
           />
-          <Route
-            exact
-            path="/login"
-            render={(props) => <Login setUser={this.setUser} {...props} />}
-          />
+
           <Route
             exact
             path="/"
-            render={(props) => <Home user={this.state.user} {...props} />}
+            render={(props) => <Home setUser={this.setUser}  user={this.state.user} {...props} />}
           />
           <Route
             exact

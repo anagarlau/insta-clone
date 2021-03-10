@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700");
 
 .wall {
   display: flex;
@@ -6,6 +7,7 @@
 }
 
 .post {
+  margin-top: 10px;
   margin-bottom: 10px;
   border-width: 1px;
   border-style: solid;
@@ -22,6 +24,148 @@
   background-color: rgb(238, 170, 215);
 }
 
-.userImgForm>input {
+.userImgForm > input {
   display: none;
+}
+
+.homeScreen {
+  background-color: rgba(243, 236, 236, 0.432);
+  background-image: url("https://images.unsplash.com/photo-1516720269325-8ecfb72ead07?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8bW91bnRhaW4lMjBzaWRlfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80");
+  background-position: center;
+  background-size: auto;
+  background-repeat: no-repeat;
+  height: 92vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.innerHomeScreen {
+  border-style: solid;
+  border-color: rgb(104, 102, 102);
+  border-width: 1px;
+  background-color: rgba(252, 245, 236, 0.705);
+  height: auto;
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginButton {
+  background-color: rgb(238, 170, 215);
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: rgb(238, 170, 215);
+  border-style: solid;
+}
+
+.loginButton:hover {
+  background-color: rgb(228, 122, 192);
+}
+
+.signupBg {
+  background-color: rgba(243, 236, 236, 0.432);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 92vh;
+}
+
+.signupFormBg {
+  text-align: center;
+  background-color: white;
+  padding: 5% 5%;
+  border-color: rgb(204, 204, 204);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 2px;
+}
+
+.signupForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  font-family: "Lobster Two", cursive;
+}
+
+.userImgName {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.userName {
+  color: black;
+}
+
+.likeDescription {
+  display: flex;
+  justify-content: space-between;
+}
+
+.lastComment>p {
+  margin-bottom: 0px;
+}
+
+.singlePost {
+  display: flex;
+  justify-content: center;
+}
+
+
+.btn {
+  padding: 1px;
+  background-color: rgb(238, 170, 215);
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0%;
+}
+
+.btn:hover {
+  background-color: rgb(228, 122, 192);
+}
+
+.likeCounter {
+  display: flex;
+  align-items: center;
+  height: 24px;
+}
+
+.deletePost {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+.btnDelete {
+  padding: 1px;
+  background-color: rgb(214, 116, 116);
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0%;
+  border: none;
+  padding: 0px 5px;
+}
+
+.btnDelete:hover {
+  background-color: rgb(214, 63, 63);
 }
