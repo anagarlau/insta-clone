@@ -12,7 +12,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/User.js");
 const Post = require("./models/Post.js");
  const mongoose = require('./db/index.js')
- const cors = require('cors');
+const cors = require('cors');
  const path = require('path');
  app.use(express.static(path.join(__dirname, "/client/build")));
 

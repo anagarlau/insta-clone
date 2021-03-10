@@ -13,7 +13,7 @@ const errorHandler = err => {
 };
 
 
-export default {
+const services =  {
   service,
  
   handleUpload(theFile) {
@@ -53,3 +53,4 @@ export default {
 
 };
 
+export default services
