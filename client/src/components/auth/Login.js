@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { login } from "../../services/auth-service";
 import "bootstrap/dist/css/bootstrap.css";
 class Login extends Component {
-  state = { username: "", password: ""};
+  state = { username: "", password: "" };
 
   handleFormSubmit = (event) => {
     // console.log(event);
@@ -20,7 +20,7 @@ class Login extends Component {
         // we want to put the user object in the state of App.js
         // console.log(user)
         this.props.setUser(user);
-        this.props.history.push("/");
+        //this.props.history.push("/");
       }
     });
   };
@@ -32,11 +32,11 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <form  onSubmit={this.handleFormSubmit}>
-          <label className="form-label">
-            Username:
+      <div >
+        <form className='login' onSubmit={this.handleFormSubmit}>
+          <label>
             <input
+              placeholder="Username:"
               className="form-control"
               type="text"
               name="username"
@@ -45,9 +45,9 @@ class Login extends Component {
             />
           </label>
 
-          <label className="form-label">
-            Password:
+          <label>
             <input
+              placeholder="Password:"
               className="form-control"
               type="password"
               name="password"
@@ -56,10 +56,8 @@ class Login extends Component {
             />
           </label>
 
-          <input type="submit" value="Login" />
-          {this.state.message && (
-            <h4>{this.state.message}</h4>
-          )}
+          <input className='loginButton' type="submit" value="Login" />
+          {this.state.message && <h4>{this.state.message}</h4>}
         </form>
       </div>
     );

@@ -6,7 +6,7 @@ const { uploader, cloudinary } = require("../config/config");
 router.get("/allPosts", async (req, res) => {
   try {
     const allPosts = await Post.find()
-      .populate("postedBy", "_id username")
+      .populate("postedBy", "_id username imgURL")
       .populate("comments.postedBy", "_id username");
       
     res.json(allPosts);
@@ -61,7 +61,7 @@ router.get("/allPosts/:id", loginCheck(), async (req, res) => {
   const id = req.params.id;
   try {
     const post = await Post.findById(id)
-      .populate("postedBy", "_id username")
+      .populate("postedBy", "_id username imgURL")
       .populate("comments.postedBy", "_id username");
      
     res.json(post);

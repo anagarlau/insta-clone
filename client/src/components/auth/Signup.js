@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { signup } from "../../services/auth-service";
-
+import "bootstrap/dist/css/bootstrap.css";
 class Signup extends Component {
   state = { username: "", password: "", email: "" };
 
@@ -33,41 +33,46 @@ class Signup extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleFormSubmit}>
-          <label>
-            Username:
-            <input
-              type="text"
-              name="username"
-              value={this.state.username}
-              onChange={(e) => this.handleChange(e)}
-            />
-          </label>
+      <div className="signupBg">
+        <div className="signupFormBg">
+          <h3 className='logo'>Instaclone</h3>
+          <form className="signupForm" onSubmit={this.handleFormSubmit}>
+            <label>
+              <input
+                className="form-control"
+                placeholder="Username:"
+                type="text"
+                name="username"
+                value={this.state.username}
+                onChange={(e) => this.handleChange(e)}
+              />
+            </label>
 
-          <label>
-            Password:
-            <input
-              name="password"
-              value={this.state.password}
-              onChange={(e) => this.handleChange(e)}
-            />
-          </label>
+            <label>
+              <input
+                className="form-control"
+                placeholder="Password:"
+                type="password"
+                name="password"
+                value={this.state.password}
+                onChange={(e) => this.handleChange(e)}
+              />
+            </label>
 
-          <label>
-            Email:
-            <input
-              name="email"
-              value={this.state.email}
-              onChange={(e) => this.handleChange(e)}
-            />
-          </label>
+            <label>
+              <input
+                className="form-control"
+                placeholder="Email:"
+                name="email"
+                value={this.state.email}
+                onChange={(e) => this.handleChange(e)}
+              />
+            </label>
 
-          <input type="submit" value="Signup" />
-          {this.state.message && (
-            <h4>{this.state.message}</h4>
-          )}
-        </form>
+            <input className="loginButton" type="submit" value="Signup" />
+            {this.state.message && <h6>{this.state.message}</h6>}
+          </form>
+        </div>
       </div>
     );
   }

@@ -17,7 +17,6 @@ class NavbarLoggedIn extends React.Component {
   getUserImage = (e) => {
     let ba = "";
     const uploadData = new FormData();
-    console.log(e.target.files[0]);
     uploadData.append("imgURL", e.target.files[0]);
     service
       .handleUploadPicture(uploadData)
@@ -33,7 +32,6 @@ class NavbarLoggedIn extends React.Component {
             imgURL: ba,
           })
           .then((response) => {
-            console.log(response);
             this.setState({ imgURL: response.data.imgURL });
           })
           .catch((err) => {
@@ -53,11 +51,10 @@ class NavbarLoggedIn extends React.Component {
     return (
       <nav
         className="navbar navbar-expand-md navbar-light navBg"
-        style={{ backgroundColor: "pink" }}
       >
-        <Link className="navbar-brand" to={"/"}>
+        <Link className="navbar-brand logo" to={"/"}>
           {" "}
-          Instagram{" "}
+          Instaclone{" "}
         </Link>
 
         <div

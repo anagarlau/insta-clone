@@ -18,7 +18,6 @@ class OtherUserProfile extends React.Component {
     axios
       .get(`/api/profiles/${id}`)
       .then((response) => {
-        console.log(response);
         this.setState({ posts: response.data });
       })
       .catch((err) => {
@@ -43,6 +42,7 @@ class OtherUserProfile extends React.Component {
             <div key={post._id} className="post" style={{ width: "18rem" }}>
               <div className="card-body">
                 <h5 className="card-title"> {post.postedBy.username}</h5>
+                <img alt="user profile" style={{width: '30px'}} src={post.postedBy.imgURL}/>
                 <Link to={`/allPosts/${post._id}`}>
                   <img src={post.imgURL} className="card-img-top" alt="..." />
                 </Link>
