@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { logout } from "../services/auth-service.js";
 import "../App.css";
-import service from "../api/service";
+import services from "../api/service";
 import axios from "axios";
 
 class NavbarLoggedIn extends React.Component {
@@ -19,7 +19,7 @@ class NavbarLoggedIn extends React.Component {
     const uploadData = new FormData();
     console.log(e.target.files[0]);
     uploadData.append("imgURL", e.target.files[0]);
-    service
+    services
       .handleUploadPicture(uploadData)
       .then((res) => {
         ba = res.secure_url;

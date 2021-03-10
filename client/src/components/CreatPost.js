@@ -1,6 +1,6 @@
 import React from "react";
 // import axios from "axios";
-import service from "../api/service";
+import services from "../api/service";
 
 class CreatePost extends React.Component {
   state = {
@@ -22,7 +22,7 @@ class CreatePost extends React.Component {
     // imageUrl => this name has to be the same as in the model since we pass
     // req.body to .create() method when creating a new thing in '/api/things/create' POST route
     uploadData.append("imgURL", e.target.files[0]);
-    service
+    services
       .handleUpload(uploadData)
       .then((response) => {
         console.log('response is: ', response);
@@ -39,7 +39,7 @@ class CreatePost extends React.Component {
   
   handleSubmit = (e) => {
     e.preventDefault();
-    service
+    services
       .createPost(this.state)
       .then((res) => {
         console.log("added: ", res);
