@@ -4,7 +4,7 @@ import service from "../api/service";
 
 class CreatePost extends React.Component {
   state = {
-    message: '',
+    message: "",
     description: "",
     imgURL: "",
     isFileUpoading: false,
@@ -12,6 +12,7 @@ class CreatePost extends React.Component {
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
+    console.log(this.props);
   };
 
   handleFileUpload = (e) => {
@@ -25,7 +26,7 @@ class CreatePost extends React.Component {
     service
       .handleUpload(uploadData)
       .then((response) => {
-        console.log('response is: ', response);
+        console.log("response is: ", response);
         // after the console.log we can see that response carries 'secure_url' which we can use to update the state
         this.setState({ imgURL: response.secure_url });
       })
@@ -36,7 +37,7 @@ class CreatePost extends React.Component {
         this.setState({ isFileUpoading: false });
       });
   };
-  
+
   handleSubmit = (e) => {
     e.preventDefault();
     service
@@ -47,32 +48,40 @@ class CreatePost extends React.Component {
         this.props.history.push("/userprofile");
       })
       .catch((err) => {
-        this.setState({message: 'Please make something pretty'})
+        this.setState({ message: "Please make something pretty" });
         console.log("Error while adding the thing: ", err);
       });
   };
   render() {
-    console.log("this is the state", this.state);
-    console.log(this.state);
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Description:
+      <div className="bodyCreatePost">
+        <form className="postForm" onSubmit={this.handleSubmit}>
+          <h4>{this.props.user.username}:</h4>
+          <label>Upload Img: </label>
+          <div className="chooseFile">
+            <input
+              className="chooseFileInput"
+              type="file"
+              onChange={(e) => this.handleFileUpload(e)}
+            />
+          </div>
           <input
+            className="inputPostDescirption"
+            placeholder="Description:"
             value={this.state.description}
             name="description"
             onChange={this.handleChange}
           />
-        </label>
-        <label> Img: </label>
-        <input type="file" onChange={(e) => this.handleFileUpload(e)} />
-        <button disabled={this.state.isFileUpoading} type="submit">
-          Post
-        </button>
-        {this.state.message && (
-            <h4>{this.state.message}</h4>
-          )}
-      </form>
+          <button
+            className="postBtn"
+            disabled={this.state.isFileUpoading}
+            type="submit"
+          >
+            Share
+          </button>
+          {this.state.message && <h4>{this.state.message}</h4>}
+        </form>
+      </div>
     );
   }
 }

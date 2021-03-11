@@ -33,23 +33,35 @@ class OtherUserProfile extends React.Component {
     if (this.state.posts.length === 0) return <h3> Loading... </h3>;
 
     return (
-      <div >
-        <div>aaaaaa</div>
-        {this.state.posts
-          .slice(0)
-          .reverse()
-          .map((post) => (
-            <div key={post._id} className="post" style={{ width: "18rem" }}>
-              <div className="card-body">
-                <h5 className="card-title"> {post.postedBy.username}</h5>
-                <img alt="user profile" style={{width: '30px'}} src={post.postedBy.imgURL}/>
+      <div className="otherUserProfile">
+        <div className="otherUserProfileHeader">
+          <div className='userImageName'>
+            <img
+              alt="user profile"
+              style={{ height: "50px", width: "50px", borderRadius: "50%" }}
+              src={this.state.posts[0].postedBy.imgURL}
+            />
+            <h3> {this.state.posts[0].postedBy.username}</h3>
+          </div>
+          <p><strong>{this.state.posts.length} posts </strong></p>
+        </div>
+        <div className="allUserPosts">
+          {this.state.posts
+            .slice(0)
+            .reverse()
+            .map((post) => (
+              <div key={post._id}>
                 <Link to={`/allPosts/${post._id}`}>
-                  <img src={post.imgURL} className="card-img-top" alt="..." />
+                  <img
+                    style={{ width: "9rem", height: "9rem" }}
+                    src={post.imgURL}
+                    className="userImages"
+                    alt="..."
+                  />
                 </Link>
-                <p className="card-text">{post.description}</p>
               </div>
-            </div>
-          ))}
+            ))}
+        </div>
       </div>
     );
   }

@@ -15,15 +15,6 @@
   border-radius: 5px;
 }
 
-.addButton {
-  height: 20px;
-  width: auto;
-}
-
-.navBg {
-  background-color: rgb(238, 170, 215);
-}
-
 .userImgForm > input {
   display: none;
 }
@@ -101,6 +92,7 @@
 
 .logo {
   font-family: "Lobster Two", cursive;
+  font-size: 2.5rem;
 }
 
 .userImgName {
@@ -187,11 +179,159 @@
 
 .commentField {
   width: 100%;
-  height: 150px;
+  height: auto;
   padding: 12px 20px;
   box-sizing: border-box;
   border: 2px solid #ccc;
   border-radius: 4px;
   background-color: #f8f8f8;
   resize: none;
+}
+
+.commentDisplay {
+  display: flex;
+  justify-content: space-between;
+}
+
+.allComments {
+  margin-top: 10vh;
+}
+
+.bodyCreatePost {
+  background-color: rgba(243, 236, 236, 0.432);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 92vh;
+}
+
+.postForm {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 10vh 3vh;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 1%;
+  border-color: rgb(211, 210, 210);
+}
+
+.inputPostDescirption {
+  width: 100%;
+  height: 40px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+  margin-top: 10px;
+}
+
+.chooseFile {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.chooseFileInput {
+  width: min-content;
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.postBtn {
+  margin-top: 20px;
+  padding: 5px;
+  background-color: rgb(238, 170, 215);
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2%;
+  border-width: 0;
+}
+
+.postBtn:hover {
+  background-color: rgb(228, 122, 192);
+}
+
+.postForm > label {
+  margin-top: 10px;
+}
+
+.otherUserProfile {
+  background-color: rgba(243, 236, 236, 0.432);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 91vh;
+}
+
+.allUserPosts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 96vh;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  height: min-content;
+}
+
+.userImages {
+  padding: 5px 5px;
+  margin: 2px 2px;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.otherUserProfileHeader {
+  margin-top: 5px;
+  width: 96vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userImageName {
+  display: flex;
+  align-items: center;
+}
+
+.navbarLogedin {
+  display: flex;
+  justify-content: space-between;
+}
+
+.addButton {
+  height: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+  justify-self: flex-start;
+  opacity: 0.6;
+}
+
+.addButton:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.navBg {
+  background-color: rgb(238, 170, 215);
+}
+
+.logoWidth {
+  width: 218px;
+}
+
+.userImgNavbar:hover {
+  cursor: pointer;
+  opacity: 0.5;
 }

@@ -69,7 +69,7 @@ class App extends Component {
             path="/creatpost"
             render={(props) => {
               if (this.state.user) {
-                return <CreatPost {...props} />;
+                return <CreatPost user={this.state.user} {...props} />;
               } else return <Redirect to="/" />;
             }}
           />
