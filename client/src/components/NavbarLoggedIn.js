@@ -53,19 +53,20 @@ class NavbarLoggedIn extends React.Component {
         <Link className="navbar-brand logo logoWidth" to={"/"}>
           Instaclone
         </Link>
-        <img
-          className="addButton"
-          src="/img/add-button-pngrepo-com.png"
-          alt="add"
-        />
+        <Link className="nav-item nav-link" to={"/creatpost"}>
+          <img
+            className="addButton"
+            src="/img/add-button-pngrepo-com.png"
+            alt="add"
+          />
+        </Link>
         <div>
-          <Link className="nav-item nav-link" to={"/creatpost"}></Link>
           <div className="navbar-nav">
             <div>
               <form className="userImgForm">
                 <label htmlFor="file-input">
                   <img
-                    className='userImgNavbar'
+                    className="userImgNavbar"
                     alt="imageuser"
                     style={{ width: "30px" }}
                     src={this.state.imgURL}
