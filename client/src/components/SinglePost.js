@@ -167,25 +167,30 @@ class SinglePost extends React.Component {
 
             <div>
               <form onSubmit={this.handleSubmit}>
-                <label>
-                  Comment:
+                
                   <input
+                    placeholder="Comment:"
+                    className="commentField"
+                    type="text"
                     value={this.state.comment}
                     name="comment"
                     onChange={this.handleChange}
                   />
-                </label>
-                <div></div>
-                <button type="submit">Comment</button>
+                
+                <div className="comment">
+                  <button className="btnComment" type="submit">
+                    Post Comment
+                  </button>
+                </div>
               </form>
-              <div>
+              <div className="allComments">
                 {this.state.post.comments
                   .slice(0)
                   .reverse()
                   .map((comment) => (
-                    <div key={comment._id}>
-                      <h3>{comment.postedBy.username}</h3>
-                      {comment.comment}
+                    <div className='commentDisplay' key={comment._id}>
+                      <p><strong>{comment.postedBy.username}:</strong> {comment.comment}</p>
+                      
                       {this.props.user._id === comment.postedBy._id ? (
                         <button
                           className="btnDelete"

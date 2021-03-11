@@ -49,23 +49,23 @@ class NavbarLoggedIn extends React.Component {
 
   render() {
     return (
-      <nav
-        className="navbar navbar-expand-md navbar-light navBg"
-      >
-        <Link className="navbar-brand logo" to={"/"}>
-          {" "}
-          Instaclone{" "}
+      <nav className="navbar navbar-expand-md navbar-light navBg navbarLogedin">
+        <Link className="navbar-brand logo logoWidth" to={"/"}>
+          Instaclone
         </Link>
-
-        <div
-          className="collapse navbar-collapse justify-content-end"
-          id="navbarCollapse"
-        >
+        <img
+          className="addButton"
+          src="/img/add-button-pngrepo-com.png"
+          alt="add"
+        />
+        <div>
+          <Link className="nav-item nav-link" to={"/creatpost"}></Link>
           <div className="navbar-nav">
             <div>
               <form className="userImgForm">
                 <label htmlFor="file-input">
                   <img
+                    className='userImgNavbar'
                     alt="imageuser"
                     style={{ width: "30px" }}
                     src={this.state.imgURL}
@@ -78,23 +78,15 @@ class NavbarLoggedIn extends React.Component {
                 />
               </form>
             </div>
+            <Link className="nav-item nav-link" to={"/userprofile"}>
+              {this.props.user.username}'s Profile
+            </Link>
             <Link
               className="nav-item nav-link active"
               to="/"
               onClick={() => this.handleLogout(this.props)}
             >
               Logout
-            </Link>
-            <Link className="nav-item nav-link" to={"/userprofile"}>
-              {this.props.user.username}'s Profile
-            </Link>
-            <Link className="nav-item nav-link" to={"/creatpost"}>
-              {" "}
-              <img
-                className="addButton"
-                src="/img/add-button-pngrepo-com.png"
-                alt="add"
-              />
             </Link>
           </div>
         </div>
