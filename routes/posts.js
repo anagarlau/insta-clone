@@ -134,7 +134,10 @@ router.post('/allPosts/:id/unlike', loginCheck(), (req, res)=>{
 
 
 router.delete("/allPosts/:id", loginCheck(), (req, res, next) => {
-  Post.findByIdAndDelete(req.params.id).then(() => {
+  Post.findByIdAndDelete(req.params.id)
+  .populate("postedBy")
+  .populate("comments.postedBy", "_id username imgURL")
+  .then(() => {
     res
       .status(200)
       .json({ message: "post deleted" })
