@@ -10,7 +10,7 @@ router.get("/:id", async (req, res, next) => {
     console.log(user)
     const userPosts = await Post.find({postedBy: req.params.id})
      .populate("postedBy", "_id username imgURL")
-    .populate("comments.postedBy", "_id username");
+    .populate("comments.postedBy", "_id username imgURL");
     console.log(userPosts)
     res.json(userPosts) 
   }
