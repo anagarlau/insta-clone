@@ -68,7 +68,6 @@ class NavbarLoggedIn extends React.Component {
                   <img
                     className="userImgNavbar"
                     alt="imageuser"
-                    style={{ width: "30px" }}
                     src={this.state.imgURL}
                   />
                 </label>

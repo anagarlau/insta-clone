@@ -276,10 +276,7 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
-  width: 96vh;
-  border-style: solid;
-  border-color: black;
-  border-width: 1px;
+  max-width: 96vh;
   height: min-content;
 }
 
@@ -329,6 +326,12 @@
 
 .logoWidth {
   width: 218px;
+}
+
+.userImgNavbar {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
 }
 
 .userImgNavbar:hover {
