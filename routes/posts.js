@@ -7,7 +7,7 @@ router.get("/allPosts", async (req, res) => {
   try {
     const allPosts = await Post.find()
       .populate("postedBy", "_id username imgURL")
-      .populate("comments.postedBy", "_id username");
+      .populate("comments.postedBy", "_id username imgURL");
       
     res.json(allPosts);
   } catch (err) {
@@ -48,8 +48,8 @@ router.post("/postIt", (req, res, next) => {
 router.get("/userPosts", async (req, res) => {
   try {
     const userPosts = await Post.find({ postedBy: req.user._id })
-      .populate("postedBy", "_id username")
-      .populate("comments.postedBy", "_id username");
+      .populate("postedBy", "_id username imgURL")
+      .populate("comments.postedBy", "_id username imgURL");
     res.json(userPosts);
   } catch (err) {
     res.status(500).send();
@@ -62,7 +62,7 @@ router.get("/allPosts/:id", loginCheck(), async (req, res) => {
   try {
     const post = await Post.findById(id)
       .populate("postedBy", "_id username imgURL")
-      .populate("comments.postedBy", "_id username");
+      .populate("comments.postedBy", "_id username imgURL");
      
     res.json(post);
   } catch (err) {
@@ -80,8 +80,8 @@ router.post("/allPosts/:id/comment", loginCheck(), (req, res) => {
     },
     { new: true }
   )
-    .populate("postedBy", "_id username")
-    .populate("comments.postedBy", "_id username")
+    .populate("postedBy", "_id username imgURL")
+    .populate("comments.postedBy", "_id username imgURL")
     .then((response) => {
       console.log(response);
       res.json(response);
@@ -96,7 +96,7 @@ router.post('/allPosts/:id/like', loginCheck(), (req, res)=>{
    {new: true}
  )
  .populate("postedBy")
- .populate("comments.postedBy", "_id username")
+ .populate("comments.postedBy", "_id username imgURL")
  .then(response=>{
   // console.log(response)
    res.json(response)
@@ -112,7 +112,7 @@ router.post('/allPosts/:id/unlike', loginCheck(), (req, res)=>{
     {new: true}
   )
   .populate("postedBy")
-  .populate("comments.postedBy", "_id username")
+  .populate("comments.postedBy", "_id username imgURL")
   .then(response=>{
    
     res.json(response)
@@ -155,8 +155,8 @@ router.post("/allPosts/:id/uncomment", loginCheck(), (req, res, next) => {
     },
     { new: true }
   )
-    .populate("postedBy", "_id username")
-    .populate("comments.postedBy", "_id username")
+    .populate("postedBy", "_id username imgURL")
+    .populate("comments.postedBy","_id username imgURL")
     .then((response) => {
       console.log(response);
       res.json(response);
