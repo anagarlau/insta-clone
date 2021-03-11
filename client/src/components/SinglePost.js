@@ -167,16 +167,22 @@ class SinglePost extends React.Component {
 
             <div>
               <form onSubmit={this.handleSubmit}>
-                <label>
-                  Comment:
+                
                   <input
+                    placeholder="Comment:"
+                    className="commentField"
+                    type="text"
                     value={this.state.comment}
                     name="comment"
                     onChange={this.handleChange}
                   />
-                </label>
-                <div></div>
-                <button type="submit">Comment</button>
+                
+                <div className="comment">
+                  <button className="btnComment" type="submit">
+                    {" "}
+                    Post Comment
+                  </button>
+                </div>
               </form>
               <div>
                 {this.state.post.comments
